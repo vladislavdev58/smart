@@ -1,7 +1,6 @@
 import React from 'react'
 import {Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography} from '@mui/material'
-
-const plug = 'https://play-lh.googleusercontent.com/NFq59dFMvx2KaMVze8ogX47sbxxo9_GUEVO-bln5Rv9M7ZzwM8LwKfJcnpg5Au65F0k'
+import stub from '../../assets/images/stub.jpg'
 
 export const CardPerson = ({image, name}) => {
     return (
@@ -10,8 +9,9 @@ export const CardPerson = ({image, name}) => {
                 <CardMedia
                     component="img"
                     height="240"
-                    image={image ? image : plug}
+                    image={image ? image : stub}
                     alt={`Photo - ${name}`}
+                    loading="lazy"
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">{name}</Typography>

@@ -7,7 +7,7 @@ export const PersonList = ({persons}) => {
     return (
         <Grid container spacing={4}>
             {persons && persons.map(({image, name}, index) =>
-                <Grid item xs={2} key={index}>
+                <Grid item xs={3} key={index}>
                     <CardPerson
                         image={image}
                         name={name}
