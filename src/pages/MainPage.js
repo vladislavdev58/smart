@@ -6,18 +6,18 @@ import CharactersStore from '../store/CharactersStore'
 import {Preloader} from '../components/Preloader/Preloader'
 import {observer} from 'mobx-react-lite'
 import {LayoutAsSidebar} from '../layouts/LayoutAsSidebar'
-import {Filter} from '../components/Filter/Filter'
+import {FilterMainPage} from '../components/FilterMainPage/FilterMainPage'
 
 export const MainPage = observer(() => {
-    const {loading, allCharacters, dataFilter} = CharactersStore
+    const {loading, allCharacters, filterResult} = CharactersStore
 
     useEffect(() => {
         getAll()
 
         // const result = []
         // allCharacters.map((i) => {
-        //     if (!result.includes(i.species)) {
-        //         result.push(i.species)
+        //     if (!result.includes(i.patronus)) {
+        //         result.push(i.patronus)
         //     }
         // })
         // console.log(result)
@@ -33,8 +33,8 @@ export const MainPage = observer(() => {
 
     return (
         <LayoutAsSidebar
-            content={<PersonList persons={allCharacters}/>}
-            sideBar={<Filter dataFilter={dataFilter}/>}
+            content={<PersonList persons={filterResult ? filterResult : allCharacters}/>}
+            sideBar={<FilterMainPage/>}
         />
     )
 })

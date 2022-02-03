@@ -1,4 +1,4 @@
-import {makeAutoObservable, toJS, values} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 class CharactersStore {
     allCharacters = null
@@ -18,7 +18,7 @@ class CharactersStore {
                 {
                     id: 'humanGender',
                     label: 'Мужской',
-                    value: 'human'
+                    value: 'male'
                 },
                 {
                     id: 'femaleGender',
@@ -38,7 +38,7 @@ class CharactersStore {
                     active.push(value)
                 } else if (active.includes(value)) {
                     const index = active.indexOf(value)
-                    active.splice(index, 1);
+                    active.splice(index, 1)
                 }
                 this.activeFilter = {...this.activeFilter, [name]: active}
             },
@@ -46,7 +46,7 @@ class CharactersStore {
                 {
                     id: 'gryffindorCheckbox',
                     label: 'Gryffindor',
-                    value: 'gryffindor',
+                    value: 'Gryffindor',
                     name: 'house',
                     checked: false,
                     onChange: function () {
@@ -56,7 +56,7 @@ class CharactersStore {
                 {
                     id: 'slytherinCheckbox',
                     label: 'Slytherin',
-                    value: 'slytherin',
+                    value: 'Slytherin',
                     name: 'house',
                     checked: false,
                     onChange: function () {
@@ -66,7 +66,7 @@ class CharactersStore {
                 {
                     id: 'hufflepuff',
                     label: 'Hufflepuff',
-                    value: 'hufflepuff',
+                    value: 'Hufflepuff',
                     name: 'house',
                     checked: false,
                     onChange: function () {
@@ -76,7 +76,7 @@ class CharactersStore {
                 {
                     id: 'ravenclaw',
                     label: 'Ravenclaw',
-                    value: 'ravenclaw',
+                    value: 'Ravenclaw',
                     name: 'house',
                     checked: false,
                     onChange: function () {
@@ -92,7 +92,7 @@ class CharactersStore {
             id: 'alive',
             onChange: (event) => {
                 const {name, value} = event.target
-                this.activeFilter = {...this.activeFilter, [name]: Boolean(value)}
+                runInAction(() => this.activeFilter = {...this.activeFilter, [name]: Boolean(value)})
             },
             items: [
                 {
@@ -108,10 +108,39 @@ class CharactersStore {
             ]
         },
     ]
+    filterResult = null
 
     constructor() {
         makeAutoObservable(this)
     }
+
+    filter = () => {
+        const keys = Object.keys(this.activeFilter)
+        if (!keys.length) {
+            return null
+        }
+        this.filterResult = this.allCharacters.filter((person) => {
+            let flag = false
+            for (let key = 0; key < keys.length; key++) {
+                if (Array.isArray(this.activeFilter[keys[key]])) {
+                    for (let i = 0; i < this.activeFilter[keys[key]].length; i++) {
+                        const elem = this.activeFilter[keys[key]][i]
+                        flag = elem === person[keys[key]]
+                        if (flag) {
+                            break
+                        }
+                    }
+                } else {
+                    flag = this.activeFilter[keys[key]] === person[keys[key]]
+                }
+                if (!flag) {
+                    break
+                }
+            }
+            return flag
+        })
+    }
+
 }
 
 export default new CharactersStore()

@@ -1,10 +1,7 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {FilterList} from '../FilterList/FilterList'
-import {observer} from 'mobx-react-lite'
 
 export const Filter = ({dataFilter}) => {
-
-
 
     return (
         <div style={{border: '1px solid red'}}>
