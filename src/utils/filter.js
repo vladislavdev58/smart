@@ -10,7 +10,7 @@ export function changeCheckbox() {
     this.checked = !this.checked
 }
 
-export const changeCheckboxMain = (event) => {
+export const changeCheckboxGroup = (event) => {
     const {checked, name, value} = event.target
     const active = CharactersStore.activeFilter[name] ? CharactersStore.activeFilter[name] : []
     if (checked && !active.includes(value)) {
@@ -54,7 +54,7 @@ const CheckboxGroup = function (keys, config) {
     this.title = config.title
     this.type = 'checkbox'
     this.id = config.key
-    this.onChange = changeCheckboxMain
+    this.onChange = changeCheckboxGroup
     this.items = keys.map((key) => new CheckboxItem(key, config))
 }
 
