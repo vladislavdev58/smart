@@ -10,7 +10,7 @@ export function changeCheckbox() {
     this.checked = !this.checked
 }
 
-export const changeCheckboxGroup = (event) => {
+export const changeCheckboxMain = (event) => {
     const {checked, name, value} = event.target
     const active = CharactersStore.activeFilter[name] ? CharactersStore.activeFilter[name] : []
     if (checked && !active.includes(value)) {
@@ -26,38 +26,30 @@ export const changeCheckboxGroup = (event) => {
     }
 }
 
-const RadioItem = function (key, config) {
-    this.id = key + config.title
-    this.label = key[0].toUpperCase() + key.slice(1)
-    this.value = key
-}
+export const generateRadioObject = (keys, config) => ({
+    title: config.title,
+    type: 'radio',
+    name: config.key,
+    id: config.key,
+    onChange: changeRadio,
+    items: keys.map((key) => ({
+        id: key + config.title,
+        label: key[0].toUpperCase() + key.slice(1),
+        value: key
+    }))
+})
 
-const RadioGroup = function (keys, config) {
-    this.title = config.title
-    this.type = 'radio'
-    this.name = config.key
-    this.id = config.key
-    this.onChange = changeRadio
-    this.items = keys.map((key) => new RadioItem(key, config))
-}
-
-const CheckboxItem = function (key, config) {
-    this.id = key + config.title
-    this.label = key[0].toUpperCase() + key.slice(1)
-    this.value = key
-    this.name = config.key
-    this.checked = false
-    this.onChange = changeCheckbox
-}
-
-const CheckboxGroup = function (keys, config) {
-    this.title = config.title
-    this.type = 'checkbox'
-    this.id = config.key
-    this.onChange = changeCheckboxGroup
-    this.items = keys.map((key) => new CheckboxItem(key, config))
-}
-
-export const generateRadioObject = (keys, config) => new RadioGroup(keys, config)
-
-export const generateCheckboxObject = (keys, config) => new CheckboxGroup(keys, config)
+export const generateCheckboxObject = (keys, config) => ({
+    title: config.title,
+    type: 'checkbox',
+    id: config.key,
+    onChange: changeCheckboxMain,
+    items: keys.map((key) => ({
+        id: key+config.title,
+        label: key[0].toUpperCase() + key.slice(1),
+        value: key,
+        name: config.key,
+        checked: false,
+        onChange: changeCheckbox
+    }))
+})

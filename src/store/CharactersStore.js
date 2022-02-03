@@ -18,7 +18,6 @@ class CharactersStore {
 
     filterCharacters = () => {
         const keys = Object.keys(this.activeFilter)
-        console.log(keys, 'keys')
         if (!keys.length) {
             return this.filterResult = null
         }
@@ -82,11 +81,8 @@ class CharactersStore {
                 this.dataFilter.push(generateRadioObject(result, config))
             }
             if (config.type === 'checkbox') {
-                console.log(generateCheckboxObject(result, config))
                 this.dataFilter.push(generateCheckboxObject(result, config))
             }
-
-            console.log(result)
         })
     }
 

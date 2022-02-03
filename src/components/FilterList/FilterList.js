@@ -1,14 +1,13 @@
 import React from 'react'
-import {toJS} from 'mobx'
 import {RadioList} from '../RadioList/RadioList'
-import {Checkbox, FormControl, FormGroup, FormLabel, RadioGroup} from '@mui/material'
+import {FormControl, FormGroup, FormLabel, RadioGroup} from '@mui/material'
 import {CheckboxList} from '../CheckboxList/CheckboxList'
 import {observer} from 'mobx-react-lite'
 
 export const FilterList = observer(({item}) => {
     if (item.type === 'radio') {
         return (
-            <FormControl>
+            <FormControl sx={{width: '100%'}}>
                 <FormLabel>{item.title}</FormLabel>
                 <RadioGroup
                     name={item.name}

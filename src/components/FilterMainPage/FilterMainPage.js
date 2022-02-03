@@ -12,7 +12,6 @@ export const FilterMainPage = observer(() => {
     }, [generateFilters])
 
     useEffect(() => {
-        console.log('USE')
         filterCharacters()
     }, [length, filterCharacters])
     return (
