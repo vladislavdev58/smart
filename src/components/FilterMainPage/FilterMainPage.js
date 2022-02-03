@@ -4,10 +4,17 @@ import {observer} from 'mobx-react-lite'
 import {Filter} from '../Filter/Filter'
 
 export const FilterMainPage = observer(() => {
-    const {activeFilter, dataFilter, filter} = CharactersStore
+    const {activeFilter, dataFilter, filterCharacters, generateFilters} = CharactersStore
+    const length = Object.keys(activeFilter)
+
     useEffect(() => {
-        filter()
-    }, [activeFilter, filter])
+        generateFilters()
+    }, [generateFilters])
+
+    useEffect(() => {
+        console.log('USE')
+        filterCharacters()
+    }, [length, filterCharacters])
     return (
         <Filter dataFilter={dataFilter}/>
     )

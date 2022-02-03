@@ -13,14 +13,6 @@ export const MainPage = observer(() => {
 
     useEffect(() => {
         getAll()
-
-        // const result = []
-        // allCharacters.map((i) => {
-        //     if (!result.includes(i.patronus)) {
-        //         result.push(i.patronus)
-        //     }
-        // })
-        // console.log(result)
     }, [])
 
     if (loading) {
@@ -34,7 +26,7 @@ export const MainPage = observer(() => {
     return (
         <LayoutAsSidebar
             content={<PersonList persons={filterResult ? filterResult : allCharacters}/>}
-            sideBar={<FilterMainPage/>}
+            sideBar={allCharacters && <FilterMainPage/>}
         />
     )
 })
