@@ -25,7 +25,11 @@ export const MainPage = observer(() => {
 
     return (
         <LayoutAsSidebar
-            content={<PersonList persons={filterResult ? filterResult : allCharacters}/>}
+            content={
+            <>
+                {allCharacters && <PersonList persons={filterResult ? filterResult : allCharacters}/>}
+            </>
+        }
             sideBar={allCharacters && <FilterMainPage/>}
         />
     )
