@@ -11,6 +11,33 @@ class CharactersStore {
     activeFilter = {}
     dataFilter = []
     filterResult = null
+    configFilter = [
+        {
+            key: 'gender',
+            type: 'radio',
+            title: 'Gender',
+        },
+        {
+            key: 'hairColour',
+            type: 'radio',
+            title: 'Hair colour',
+        },
+        {
+            key: 'house',
+            type: 'checkbox',
+            title: 'House',
+        },
+        {
+            key: 'species',
+            type: 'checkbox',
+            title: 'Species',
+        },
+        {
+            key: 'patronus',
+            type: 'radio',
+            title: 'Patronus',
+        },
+    ]
 
     constructor() {
         makeAutoObservable(this)
@@ -43,33 +70,10 @@ class CharactersStore {
         })
     }
 
-    generateFilters = (configFilter = [
-        {
-            key: 'gender',
-            type: 'radio',
-            title: 'Gender',
-        },
-        {
-            key: 'hairColour',
-            type: 'radio',
-            title: 'Hair colour',
-        },
-        {
-            key: 'house',
-            type: 'checkbox',
-            title: 'House',
-        },
-        {
-            key: 'species',
-            type: 'checkbox',
-            title: 'Species',
-        },
-        {
-            key: 'patronus',
-            type: 'radio',
-            title: 'Patronus',
-        },
-    ]) => {
+    generateFilters = (configFilter) => {
+        if (this.dataFilter.length) {
+            return null
+        }
         configFilter.forEach((config) => {
             const result = []
             this.allCharacters.forEach((item) => {

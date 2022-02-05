@@ -4,6 +4,9 @@ import CharactersStore from '../store/CharactersStore'
 import {runInAction} from 'mobx'
 
 export const getAll = () => {
+    if (CharactersStore.allCharacters) {
+        return null
+    }
     runInAction(() => {
         CharactersStore.loading = true
     })
