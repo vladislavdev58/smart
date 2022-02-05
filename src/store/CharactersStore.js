@@ -40,8 +40,19 @@ class CharactersStore {
     ]
     paginationConfig = {
         activePage: 1,
-        showItems: 8
+        showItems: 8,
+        pageLimit: 0,
+        selectShowItems: [
+            {value: 8, label: 8},
+            {value: 10, label: 10},
+            {value: 20, label: 20},
+        ]
     }
+    selectShowItems = [
+        {value: 8, label: 8},
+        {value: 10, label: 10},
+        {value: 20, label: 20},
+    ]
 
     constructor() {
         makeAutoObservable(this)

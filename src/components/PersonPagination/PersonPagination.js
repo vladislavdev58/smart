@@ -7,18 +7,13 @@ import CharactersStore from '../../store/CharactersStore'
 import {runInAction} from 'mobx'
 
 export const PersonPagination = observer(({persons, setItems}) => {
-    const {activePage, showItems} = CharactersStore.paginationConfig
-    const pageLimit = Math.ceil(persons.length / showItems)
+    const {activePage, showItems, pageLimit, selectShowItems} = CharactersStore.paginationConfig
 
-    const selectItems = [
-        {value: 8, label: 8},
-        {value: 10, label: 10},
-        {value: 20, label: 20},
-    ]
 
     useEffect(() => {
         const offset = (activePage - 1) * showItems
         const newItems = persons.slice(offset, offset + showItems)
+        runInAction(() => CharactersStore.paginationConfig.pageLimit = Math.ceil(persons.length / showItems))
         setItems(newItems)
     }, [persons, activePage, showItems, setItems])
 
@@ -32,7 +27,7 @@ export const PersonPagination = observer(({persons, setItems}) => {
             </Box>
             <Box sx={{width: '100%', maxWidth: 120}}>
                 <MySelect label="Display by" handleChange={handleChangeShowItems}
-                          value={showItems} items={selectItems}/>
+                          value={showItems} items={selectShowItems}/>
             </Box>
         </Grid>
     )
