@@ -1,13 +1,16 @@
 import React from 'react'
-import {Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography} from '@mui/material'
+import {Card, CardActionArea, CardActions, CardContent, CardMedia, Typography} from '@mui/material'
 import stub from '../../assets/images/stub.jpg'
 import {Link} from 'react-router-dom'
 import {runInAction} from 'mobx'
 import CharacterDetailStore from '../../store/CharacterDetailStore'
 import {observer} from 'mobx-react-lite'
+import {FavoriteBtn} from '../FavoriteBtn/FavoriteBtn'
+import {checkFavorite} from '../../utils/favorites'
 
 export const CardPerson = observer((item) => {
     const {image, name} = item
+    const nameId = name.toLowerCase().replace(/\s/g, '')
     return (
         <Card>
             <CardActionArea>
@@ -25,9 +28,7 @@ export const CardPerson = observer((item) => {
                 </Link>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary">
-                    Fav
-                </Button>
+                <FavoriteBtn data={nameId} keyStorage={'characterFav'} checked={checkFavorite('characterFav', nameId)}/>
             </CardActions>
         </Card>
     )
