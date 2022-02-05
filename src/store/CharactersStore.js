@@ -38,12 +38,17 @@ class CharactersStore {
             title: 'Patronus',
         },
     ]
+    paginationConfig = {
+        activePage: 1,
+        showItems: 8
+    }
 
     constructor() {
         makeAutoObservable(this)
     }
 
     filterCharacters = () => {
+        this.paginationConfig.activePage = 1
         const keys = Object.keys(this.activeFilter)
         if (!keys.length) {
             return this.filterResult = null

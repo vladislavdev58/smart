@@ -1,11 +1,13 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import {Box, Grid} from '@mui/material'
 import {MyPagination} from '../MyPagination/MyPagination'
 import {MySelect} from '../MySelect/MySelect'
+import {observer} from 'mobx-react-lite'
+import CharactersStore from '../../store/CharactersStore'
+import {runInAction} from 'mobx'
 
-export const PersonPagination = ({persons, setItems}) => {
-    const [activePage, setActivePage] = useState(1)
-    const [showItems, setShowItems] = useState(8)
+export const PersonPagination = observer(({persons, setItems}) => {
+    const {activePage, showItems} = CharactersStore.paginationConfig
     const pageLimit = Math.ceil(persons.length / showItems)
 
     const selectItems = [
@@ -18,17 +20,20 @@ export const PersonPagination = ({persons, setItems}) => {
         const offset = (activePage - 1) * showItems
         const newItems = persons.slice(offset, offset + showItems)
         setItems(newItems)
-    }, [persons, activePage, showItems])
+    }, [persons, activePage, showItems, setItems])
+
+    const handleChangeActivePage = (page) => runInAction(() => CharactersStore.paginationConfig.activePage = page)
+    const handleChangeShowItems = (event) => runInAction(() => CharactersStore.paginationConfig.showItems = event.target.value)
 
     return (
         <Grid container justifyContent="space-between" alignItems="center" sx={{marginTop: 3}}>
             <Box>
-                <MyPagination pageLimit={pageLimit} setActivePage={setActivePage}/>
+                <MyPagination pageLimit={pageLimit} page={activePage} setActivePage={handleChangeActivePage}/>
             </Box>
             <Box sx={{width: '100%', maxWidth: 120}}>
-                <MySelect label="Display by" handleChange={(event) => setShowItems(event.target.value)}
+                <MySelect label="Display by" handleChange={handleChangeShowItems}
                           value={showItems} items={selectItems}/>
             </Box>
         </Grid>
     )
-}
+})
