@@ -15,7 +15,7 @@ export const MainPage = observer(() => {
         getAll()
     }, [])
 
-    if (loading) {
+    if (loading || !allCharacters) {
         return (
             <MainLayout>
                 <Preloader/>
@@ -25,12 +25,8 @@ export const MainPage = observer(() => {
 
     return (
         <LayoutAsSidebar
-            content={
-            <>
-                {allCharacters && <PersonList persons={filterResult ? filterResult : allCharacters}/>}
-            </>
-        }
-            sideBar={allCharacters && <FilterMainPage/>}
+            content={<PersonList persons={filterResult ? filterResult : allCharacters}/>}
+            sideBar={<FilterMainPage/>}
         />
     )
 })
