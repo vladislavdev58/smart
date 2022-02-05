@@ -1,4 +1,5 @@
-[![wakatime](https://wakatime.com/badge/user/d6e84699-656c-4f31-a9b3-4541bbf99fe6/project/b9f4843b-db8f-45a4-825f-867076c8d990.svg)](https://wakatime.com/badge/user/d6e84699-656c-4f31-a9b3-4541bbf99fe6/project/b9f4843b-db8f-45a4-825f-867076c8d990)# Getting Started with Create React App
+![time](https://wakatime.com/badge/user/d6e84699-656c-4f31-a9b3-4541bbf99fe6/project/b9f4843b-db8f-45a4-825f-867076c8d990.svg)
+# Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
